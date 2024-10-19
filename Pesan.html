@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Ucapan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4de;
+        }
+
+        .card {
+            background-color: white;
+            width: 350px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .card:before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background-image: url('party-horn.png'); /* Sesuaikan dengan gambar party horn */
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .card:after {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            background-image: url('party-horn.png'); /* Sesuaikan dengan gambar party horn */
+            background-size: contain;
+            background-repeat: no-repeat;
+            transform: rotate(180deg);
+        }
+
+        .message {
+            background-color: #fffaf7;
+            border: 1px solid #ffd7c1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-line;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #5a3d2d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #3b2a1d;
+        }
+
+        /* Pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            background-color: #5a3d2d;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #3b2a1d;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="message" id="messageText">Dear Kamu,<br><br>
+            Ini adalah contoh web ucapan online.<br>
+            Kamu bisa custom ucapan, foto, dan musik sesuai keinginan.<br><br>
+            Tunggu apalagi? Buruan order.
+        </div>
+        <button id="kirimPesanBtn">Kirim Pesan</button>
+    </div>
+
+    <!-- Pop-up -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <input type="text" id="inputPesan" placeholder="Masukkan pesan Anda...">
+        <button id="kirimWaBtn">Kirim ke WhatsApp</button>
+    </div>
+
+    <script>
+        // Animasi teks muncul satu per satu
+        const message = "Selamat ulang tahun Sayankku🎉,\n\n Semoga di usia yang semakin dewasa, sayank semakin bijak dan lebih bisa menahan diri dari rasa ngambek atau merajuk, ya. Aku harap ayank makin nurut kalau aku kasih tahu, karena semua itu demi kebaikan kita bersama.\n\n Terima kasih sudah selalu ada di sisiku, aku berharap kebahagiaan dan kesuksesan selalu menyertai ayank di setiap langkah. Love you selalu! 💕";
+        let i = 0;
+        function typeWriter() {
+            if (i < message.length) {
+                document.getElementById("messageText").innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        document.getElementById("messageText").innerHTML = ""; // Bersihkan sebelum mulai animasi
+        setTimeout(typeWriter, 500); // Memulai animasi setelah 500ms
+
+        // Pop-up untuk input pesan
+        const kirimPesanBtn = document.getElementById('kirimPesanBtn');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+
+        kirimPesanBtn.addEventListener('click', function() {
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        });
+
+        overlay.addEventListener('click', function() {
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        });
+
+        // Kirim ke WhatsApp
+        const kirimWaBtn = document.getElementById('kirimWaBtn');
+        kirimWaBtn.addEventListener('click', function() {
+            const pesan = document.getElementById('inputPesan').value;
+            const nomorWa = '085158925502'; // Ganti dengan nomor WhatsApp tujuan
+            if (pesan) {
+                const waUrl = `https://wa.me/${nomorWa}?text=${encodeURIComponent(pesan)}`;
+                window.open(waUrl, '_blank');
+            } else {
+                alert("Pesan tidak boleh kosong!");
+            }
+        });
+    </script>
+
+</body>
+</html>

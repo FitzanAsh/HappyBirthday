@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(180deg, #FCE5E0 50%, #ffdac9 50%);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Kontainer Utama */
+        .container {
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 2s ease-in-out;
+            padding: 5px;
+        }
+
+        .hbd-image {
+            width: 35%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .foto-ayank {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 112vw;
+            max-width: 1000px;
+            margin: 5px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .plant {
+            max-width: 10%;
+            height: auto;
+            margin: 0 0px;
+        }
+
+        .image-container img {
+            width: 30%;
+            height: auto;
+            margin: 0 5px;
+        }
+
+        .name-banner {
+            display: inline-block;
+            padding: 0px 0px;
+            border-radius: 25px;
+            margin-top: 0px;
+        }
+
+        .name-image {
+            width: 50%;
+            max-width: 450px;
+            height: auto;
+            margin-top: 0px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #5a3d2d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+            font-size: 4vw;
+        }
+
+        button:hover {
+            background-color: #3b2a1d;
+        }
+
+        /* Efek tanaman bergerak */
+        .plants-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .plant-left {
+            animation: moveLeft 3s infinite ease-in-out;
+        }
+
+        .plant-right {
+            animation: moveRight 3s infinite ease-in-out;
+        }
+
+        @keyframes moveLeft {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-10px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes moveRight {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+            clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+            background-color: white;
+            animation: twinkle 2s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Musik */
+        audio {
+            display: none;
+        }
+
+        /* Iframe */
+        iframe {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Kontainer ucapan ulang tahun -->
+    <div class="container" id="main-content">
+        <img src="Hbd.png" alt="Nissa" class="hbd-image">
+        <div class="image-container">
+            <img src="BungaKiri.png" alt="Tanaman Kiri" class="plant plant-left">
+            <img src="FotoAyank.png" alt="Nissa" class="foto-ayank">
+            <img src="BungaKanan.png" alt="Tanaman Kanan" class="plant plant-right">
+        </div>
+        <div class="name-banner">
+            <img src="Nama.png" alt="Nissa" class="name-image">
+        </div>
+        <button onclick="loadPesan()">Lihat...</button>
+    </div>
+
+    <!-- Iframe untuk memuat halaman Pesan.html -->
+    <iframe id="pesanIframe" src="Pesan.html"></iframe>
+
+    <!-- Musik latar -->
+    <audio autoplay loop>
+        <source src="https://dekatutorial.github.io/Gellen%20Martadinata%20-%20Selamat%20Ulang%20Tahun.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Fungsi untuk menambahkan bintang secara acak di layar
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            star.style.left = `${left}vw`;
+            star.style.top = `${top}vh`;
+
+            if (top < 50) {
+                star.style.backgroundColor = '#E59170';
+            } else {
+                star.style.backgroundColor = '#FFF9F7';
+            }
+
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        // Menambahkan beberapa bintang di latar belakang
+        setInterval(createStar, 500);
+
+        // Fungsi untuk menampilkan iframe dan menyembunyikan konten utama
+        function loadPesan() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('pesanIframe').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Buat Kamu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(180deg, #FCE5E0 50%, #ffdac9 50%);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+
+        .message-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .envelope-container {
+            margin: 20px 0;
+        }
+
+        .envelope {
+            width: 150px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+            clip-path: polygon(
+                50% 0%, 60% 40%, 100% 50%, 60% 60%, 
+                50% 100%, 40% 60%, 0% 50%, 40% 40%
+            );
+            background-color: white;
+            animation: twinkle 2s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Animasi untuk menghilang ke atas */
+        .slide-up {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="message-box">
+            <p>Ada Pesan Buat Ayank</p>
+            <div class="envelope-container">
+                <img src="Amplop.png" alt="Amplop" class="envelope">
+            </div>
+            <p>Tekan Untuk Membuka</p>
+        </div>
+    </div>
+
+    <!-- Script untuk bintang -->
+    <script>
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            star.style.left = `${left}vw`;
+            star.style.top = `${top}vh`;
+
+            if (top < 50) {
+                star.style.backgroundColor = '#E59170';
+            } else {
+                star.style.backgroundColor = '#FFF9F7';
+            }
+
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        setInterval(createStar, 500);
+    </script>
+
+    <script>
+        document.querySelector('.envelope-container').addEventListener('click', function() {
+            const container = document.querySelector('.container');
+            
+            // Tambahkan class animasi "slide-up" ke container
+            container.classList.add('slide-up');
+
+            // Tunggu 1 detik sebelum redirect ke Hbd.html
+            setTimeout(() => {
+                window.location.href = 'Hbd.html';
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
