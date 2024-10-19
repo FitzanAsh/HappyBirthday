@@ -178,7 +178,7 @@
         const kirimWaBtn = document.getElementById('kirimWaBtn');
         kirimWaBtn.addEventListener('click', function() {
             const pesan = document.getElementById('inputPesan').value;
-            const nomorWa = '085158925502'; // Ganti dengan nomor WhatsApp tujuan
+            const nomorWa = '+6285158925502'; // Ganti dengan nomor WhatsApp tujuan
             if (pesan) {
                 const waUrl = `https://wa.me/${nomorWa}?text=${encodeURIComponent(pesan)}`;
                 window.open(waUrl, '_blank');
